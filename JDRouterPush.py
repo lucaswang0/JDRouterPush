@@ -107,7 +107,7 @@ def todayPointDetail():
     }
     MACS = []
     res = requests.get(GlobalVariable.jd_base_url + "todayPointDetail", params=params, headers=GlobalVariable.headers)
-    print("AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY)
+    print( {"AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY})
     if res.status_code == 200:
         res_json = res.json()
         result = res_json["result"]
