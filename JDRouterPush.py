@@ -107,6 +107,7 @@ def todayPointDetail():
     }
     MACS = []
     res = requests.get(GlobalVariable.jd_base_url + "todayPointDetail", params=params, headers=GlobalVariable.headers)
+    print("AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY)
     if res.status_code == 200:
         res_json = res.json()
         result = res_json["result"]
@@ -282,8 +283,8 @@ def resultDisplay():
                               createTime + "  " + recordType_str + str(pointAmount)
     notifyContentJson = {"content": content, "date": todayDate, "total_today": today_total_point,
                          "avail_today": total_avail_point, "account": bindAccount, "devicesCount": totalRecord,
-                         "detail": point_infos,
-                         "AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY}
+                         "detail": point_infos}
+                         
 
     push(title,notifyContentJson)
 
@@ -368,9 +369,9 @@ def main():
     resolveDeviceName(GlobalVariable.DEVICENAME)
     checkForUpdates()
     todayPointIncome()
-    pinTotalAvailPoint()
-    todayPointDetail()
-    resultDisplay()
+    #pinTotalAvailPoint()
+    #todayPointDetail()
+    #resultDisplay()
 
 
 # endregion
