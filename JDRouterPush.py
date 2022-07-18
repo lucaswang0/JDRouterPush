@@ -8,6 +8,7 @@ import NoticePush
 import NoticeTemplate
 from urllib.parse import quote
 
+print( {"AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY})
 
 # 获取当天时间和当天积分
 def todayPointIncome():
@@ -107,7 +108,7 @@ def todayPointDetail():
     }
     MACS = []
     res = requests.get(GlobalVariable.jd_base_url + "todayPointDetail", params=params, headers=GlobalVariable.headers)
-    print( {"AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY})
+    
     if res.status_code == 200:
         res_json = res.json()
         result = res_json["result"]
