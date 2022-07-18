@@ -8,8 +8,8 @@ import NoticePush
 import NoticeTemplate
 from urllib.parse import quote
 
-print( {"AGENTID":GlobalVariable.AGENTID,"CORPID":GlobalVariable.CORPID,"CORPSECRET":GlobalVariable.CORPSECRET,
-        "THUMB_MEDIA_ID":GlobalVariable.THUMB_MEDIA_ID,"TOUSER":GlobalVariable.TOUSER,"WSKEY":GlobalVariable.WSKEY,"ABC":GlobalVariable.ABC,"CDE":GlobalVariable.CDE})
+CCC= {"AGENTID":GlobalVariable.AGENTID,"CORPID":GlobalVariable.CORPID,"CORPSECRET":GlobalVariable.CORPSECRET,
+        "THUMB_MEDIA_ID":GlobalVariable.THUMB_MEDIA_ID,"TOUSER":GlobalVariable.TOUSER,"WSKEY":GlobalVariable.WSKEY,"ABC":GlobalVariable.ABC,"CDE":GlobalVariable.CDE}
 
 # 获取当天时间和当天积分
 def todayPointIncome():
@@ -371,8 +371,9 @@ def main():
     resolveDeviceName(GlobalVariable.DEVICENAME)
     checkForUpdates()
     todayPointIncome()
-    #pinTotalAvailPoint()
-    #todayPointDetail()
+    pinTotalAvailPoint()
+    todayPointDetail()
+    print(GlobalVariable.final_result)
     #resultDisplay()
 
 
