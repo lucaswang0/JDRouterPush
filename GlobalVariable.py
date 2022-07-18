@@ -58,7 +58,8 @@ device_list = {}
 records_num = 7
 # 当前版本
 version = "20210810"
-
+ABC=os.environ.get("WSKEY", "") 
+CDE=ABC
 # 环境变量
 WSKEY = os.environ.get("WSKEY", "")  # 京东云无线宝中获取
 SERVERPUSHKEY = os.environ.get("SERVERPUSHKEY", "")  # Server酱推送
