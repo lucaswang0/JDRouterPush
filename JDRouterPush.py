@@ -8,7 +8,8 @@ import NoticePush
 import NoticeTemplate
 from urllib.parse import quote
 
-print( {"AGENTID":AGENTID,"CORPID":CORPID,"CORPSECRET":CORPSECRET,"THUMB_MEDIA_ID":THUMB_MEDIA_ID,"TOUSER":TOUSER,"WSKEY":WSKEY})
+print( {"AGENTID":GlobalVariable.AGENTID,"CORPID":GlobalVariable.CORPID,"CORPSECRET":GlobalVariable.CORPSECRET,
+        "THUMB_MEDIA_ID":GlobalVariable.THUMB_MEDIA_ID,"TOUSER":GlobalVariable.TOUSER,"WSKEY":GlobalVariable.WSKEY})
 
 # 获取当天时间和当天积分
 def todayPointIncome():
