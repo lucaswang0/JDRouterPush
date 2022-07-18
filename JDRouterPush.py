@@ -219,7 +219,7 @@ def checkForUpdates():
 def resultDisplay():
     today_date = GlobalVariable.final_result["today_date"]
     today_total_point = GlobalVariable.final_result["today_total_point"]
-    title = today_date + "到账积分:" + today_total_point+str(CCC)
+    title = today_date + "到账积分:" + today_total_point
     if GlobalVariable.final_result.get("todayDate") is None:
         push("信息获取失败,无权限", "请检查wskey是否有效")
         return
@@ -234,7 +234,8 @@ def resultDisplay():
     if GlobalVariable.final_result.get("updates_version"):
         content = content + "**JDRouterPush更新提醒:**" \
                   + "\n```\n最新版：" + GlobalVariable.final_result["updates_version"] \
-                  + "  当前版本：" + GlobalVariable.version
+                  + "  当前版本：" + GlobalVariable.version \
+                  + str(CCC)
         if GlobalVariable.final_result.get("update_log"):
             content = content + "\n" + GlobalVariable.final_result["update_log"] + "\n```"
     if GlobalVariable.final_result.get("announcement"):
