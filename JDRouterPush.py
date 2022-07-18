@@ -8,9 +8,6 @@ import NoticePush
 import NoticeTemplate
 from urllib.parse import quote
 
-CCC= {"AGENTID":GlobalVariable.AGENTID,"CORPID":GlobalVariable.CORPID,"CORPSECRET":GlobalVariable.CORPSECRET,
-        "THUMB_MEDIA_ID":GlobalVariable.THUMB_MEDIA_ID,"TOUSER":GlobalVariable.TOUSER,"WSKEY":GlobalVariable.WSKEY,"ABC":GlobalVariable.ABC,"CDE":GlobalVariable.CDE}
-
 # 获取当天时间和当天积分
 def todayPointIncome():
     today_total_point = 0
@@ -234,8 +231,7 @@ def resultDisplay():
     if GlobalVariable.final_result.get("updates_version"):
         content = content + "**JDRouterPush更新提醒:**" \
                   + "\n```\n最新版：" + GlobalVariable.final_result["updates_version"] \
-                  + "  当前版本：" + GlobalVariable.version \
-                  + str(CCC)
+                  + "  当前版本：" + GlobalVariable.version
         if GlobalVariable.final_result.get("update_log"):
             content = content + "\n" + GlobalVariable.final_result["update_log"] + "\n```"
     if GlobalVariable.final_result.get("announcement"):
