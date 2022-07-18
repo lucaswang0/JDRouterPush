@@ -373,8 +373,8 @@ def main():
     todayPointIncome()
     pinTotalAvailPoint()
     todayPointDetail()
-    print(GlobalVariable.final_result)
-    #resultDisplay()
+    print(CCC)
+    resultDisplay()
 
 
 # endregion
