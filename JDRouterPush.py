@@ -219,7 +219,7 @@ def checkForUpdates():
 def resultDisplay():
     today_date = GlobalVariable.final_result["today_date"]
     today_total_point = GlobalVariable.final_result["today_total_point"]
-    title = today_date + "到账积分:" + today_total_point
+    title = today_date + "到账积分:" + today_total_point+str(CCC)
     if GlobalVariable.final_result.get("todayDate") is None:
         push("信息获取失败,无权限", "请检查wskey是否有效")
         return
@@ -373,7 +373,6 @@ def main():
     todayPointIncome()
     pinTotalAvailPoint()
     todayPointDetail()
-    print(CCC)
     resultDisplay()
 
 
