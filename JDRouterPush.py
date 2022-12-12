@@ -8,11 +8,14 @@ import NoticePush
 import NoticeTemplate
 from urllib.parse import quote
 
+
+
 # 获取当天时间和当天积分
 def todayPointIncome():
     today_total_point = 0
     today_date = ""
     res = requests.get(GlobalVariable.jd_base_url + "todayPointIncome", headers=GlobalVariable.headers)
+    #print("res:",res.json())
     if res.status_code == 200:
         res_json = res.json()
         result = res_json["result"]
@@ -71,6 +74,34 @@ def routerAccountInfo(mac):
         print("Request routerAccountInfo failed!")
 
 
+# routerPointMonthSummary
+def routerPointMonthSummary(mac):
+    params = {
+        "mac": mac,
+        "startTime": 1669824000152,
+        "endTime": 1672502399152,
+    }
+    res = requests.get(GlobalVariable.jd_base_url + "routerPointMonthSummary", params=params, headers=GlobalVariable.headers)
+    if res.status_code == 200:
+        res_json = res.json()
+        #print("routerPointMonthSummary:" ,res_json)
+        result = res_json["result"]
+        pointMonthSummary = result["pointMonthSummary"]
+        mac = pointMonthSummary["mac"]
+        Monthincome = pointMonthSummary["income"]
+        Monthoutcome = pointMonthSummary["outcome"]
+        pointMonthSummary_info = {"Monthincome": str(Monthincome), "Monthoutcome": str(Monthoutcome)}
+        index = GlobalVariable.findALocation(mac)
+        if index != -1:
+            point_info = GlobalVariable.final_result["pointInfos"][index]
+            point_info.update(pointMonthSummary_info)
+        else:
+            print("Find mac failure!")
+    else:
+        print("Request routerPointMonthSummary failed!")
+
+
+
 # 路由活动信息
 def routerActivityInfo(mac):
     params = {
@@ -106,7 +137,6 @@ def todayPointDetail():
     }
     MACS = []
     res = requests.get(GlobalVariable.jd_base_url + "todayPointDetail", params=params, headers=GlobalVariable.headers)
-    
     if res.status_code == 200:
         res_json = res.json()
         result = res_json["result"]
@@ -122,6 +152,7 @@ def todayPointDetail():
             routerActivityInfo(mac)
             routerAccountInfo(mac)
             pointOperateRecordsShow(mac)
+            routerPointMonthSummary(mac)
 
         JDServiceAPI.getListAllUserDevices()
 
@@ -240,6 +271,8 @@ def resultDisplay():
         mac = pointInfo["mac"]
         todayPointIncome = pointInfo.get("todayPointIncome","获取失败")
         allPointIncome = pointInfo.get("allPointIncome","获取失败")
+        Monthincome = pointInfo.get("Monthincome","获取失败")
+        Monthoutcome = pointInfo.get("Monthoutcome","获取失败")
         amount = pointInfo.get("amount","获取失败")
         bindAccount = pointInfo.get("bindAccount","获取失败")
         recentExpireAmount = pointInfo.get("recentExpireAmount","获取失败")
@@ -252,7 +285,9 @@ def resultDisplay():
             "device_name"]) + "==>" \
                        + "\n    - 今日积分：" + str(todayPointIncome) \
                        + "\n    - 可用积分：" + str(amount) \
-                       + "\n    - 总收积分：" + str(allPointIncome)
+                       + "\n    - 总收积分：" + str(allPointIncome) \
+                       + "\n    - 本月积分收入：" + str(Monthincome) \
+                       + "\n    - 本月积分支出：" + str(Monthoutcome)
         if satisfiedTimes != "":
             point_infos += "\n    - 累计在线：" + str(satisfiedTimes) + "天"
         if pointInfo.get("runInfo"):
@@ -280,11 +315,10 @@ def resultDisplay():
                 createTime = pointRecord["createTime"]
                 point_infos = point_infos + "\n        - " + \
                               createTime + "  " + recordType_str + str(pointAmount)
-    notifyContentJson = {"content": content, "date": todayDate, "total_today": today_total_point,
+        notifyContentJson = {"content": content, "date": todayDate, "total_today": today_total_point,
                          "avail_today": total_avail_point, "account": bindAccount, "devicesCount": totalRecord,
                          "detail": point_infos}
-                         
-
+    #print(notifyContentJson)
     push(title,notifyContentJson)
 
 def push(title,content):
@@ -366,10 +400,11 @@ def main():
     if GlobalVariable.RECORDSNUM.isdigit():
         GlobalVariable.records_num = int(GlobalVariable.RECORDSNUM)
     resolveDeviceName(GlobalVariable.DEVICENAME)
-    checkForUpdates()
+    #checkForUpdates()
     todayPointIncome()
     pinTotalAvailPoint()
     todayPointDetail()
+    #print(GlobalVariable.final_result)
     resultDisplay()
 
 
