@@ -74,12 +74,23 @@ def routerAccountInfo(mac):
         print("Request routerAccountInfo failed!")
 
 
+def last_day_of_month(any_day):
+    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)  # this will never fail
+    return next_month - datetime.timedelta(days=next_month.day)
+
+starttime = last_day_of_month(datetime.datetime.now()).strftime("%Y%m01 00:00:00.%f")
+starttime= int(datetime.datetime.strptime(starttime, "%Y%m%d %H:%M:%S.%f").timestamp()*1000)
+
+endtime = last_day_of_month(datetime.datetime.now()).strftime("%Y%m%d 23:59:59.%f")
+endtime= int(datetime.datetime.strptime(endtime, "%Y%m%d %H:%M:%S.%f").timestamp()*1000)
+
 # routerPointMonthSummary
 def routerPointMonthSummary(mac):
+
     params = {
         "mac": mac,
-        "startTime": 1669824000152,
-        "endTime": 1672502399152,
+        "startTime": starttime,
+        "endTime": endtime,
     }
     res = requests.get(GlobalVariable.jd_base_url + "routerPointMonthSummary", params=params, headers=GlobalVariable.headers)
     if res.status_code == 200:
