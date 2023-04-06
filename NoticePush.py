@@ -73,7 +73,7 @@ def enterprise_wechat(title, content):
         if not GlobalVariable.CORPID or not GlobalVariable.CORPSECRET or not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
             print("企业微信应用消息推送的变量未设置或未设置完全!!")
             return
-        res = requests.get(f"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={GlobalVariable.CORPID}&corpsecret={GlobalVariable.CORPSECRET}")
+        res = requests.get(f"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={GlobalVariable.CORPID}&corpsecret={GlobalVariable.CORPSECRET}&debug=1")
         access_token = res.json().get("access_token", False)
     else:
         if not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
