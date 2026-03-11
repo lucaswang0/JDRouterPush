@@ -55,7 +55,7 @@ device_ip = {}
 # 设备MAC 昵称 feed_id
 device_list = {}
 # 记录数
-records_num = 7
+records_num = 3
 # 当前版本
 version = "20220711"
 
